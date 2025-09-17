@@ -1,15 +1,11 @@
-﻿using GeoMaster.Application.Interfaces;
-using GeoMaster.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using GeoMaster.Domain.Entities;
 using GeoMaster.Api.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using GeoMaster.GeoMaster.Api.DTOs;
+using GeoMaster.GeoMaster.Application.Interfaces;
 
 namespace GeoMaster.GeoMaster.Api.Controllers
 {
-    using System.Text.RegularExpressions;
-    using System.Text;
-    using GeoMaster.Application.Interfaces;
-    using global::GeoMaster.GeoMaster.Api.DTOs;
-    using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/v1/validacoes")]
@@ -26,18 +22,22 @@ namespace GeoMaster.GeoMaster.Api.Controllers
         /// Verifica se a forma interna pode ser contida dentro da forma externa.
         /// </summary>
         /// <remarks>
-        /// Exemplo de request:
-        ///
+        /// Exemplos de requisição:
+        /// 
         ///     POST /api/v1/validacoes/forma-contida
         ///     {
         ///       "formaInterna": { "tipo": "circulo", "raio": 5 },
         ///       "formaExterna": { "tipo": "retangulo", "largura": 10, "altura": 10 }
         ///     }
-        ///
+        /// 
         /// </remarks>
+        /// <response code="200">Retorna true ou false, indicando se a forma interna cabe dentro da externa.</response>
+        /// <response code="400">Os dados informados são inválidos (ex: valores negativos, tipo de forma não suportado).</response>
+        /// <response code="500">Erro interno ao processar a validação.</response>
         [HttpPost("forma-contida")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(ProblemDetails), 500)]
         public IActionResult VerificarFormaContida([FromBody] VerificarFormaContidaRequest request)
         {
             if (!ModelState.IsValid)
@@ -49,8 +49,20 @@ namespace GeoMaster.GeoMaster.Api.Controllers
             if (interna == null || externa == null)
                 return BadRequest("Tipo de forma não suportado.");
 
-            var resultado = _formaContidaService.VerificarContencao(interna, externa);
-            return Ok(resultado);
+            bool resultado;
+            try
+            {
+                resultado = _formaContidaService.VerificarContencao(interna, externa);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno ao validar as formas: {ex.Message}");
+            }
+
+            if (resultado)
+                return Ok("A forma interna pode ser contida dentro da forma externa.");
+            else
+                return Ok("A forma interna não pode ser contida dentro da forma externa.");
         }
 
 

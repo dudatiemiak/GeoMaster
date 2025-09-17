@@ -1,6 +1,4 @@
-﻿using GeoMaster.GeoMaster.Domain.Entities;
-
-namespace GeoMaster.GeoMaster.Application.Interfaces
+﻿namespace GeoMaster.GeoMaster.Application.Interfaces
 {
     public interface IFormaContidaService
     {
