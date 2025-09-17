@@ -1,121 +1,102 @@
-📐 GeoMaster API
+# 📐 GeoMaster API
 
-API desenvolvida em .NET 6/7 para cálculos e validações geométricas em 2D e 3D.
-Permite calcular área, perímetro, volume e verificar se uma forma pode ser contida dentro de outra.
+**GeoMaster** é uma API desenvolvida em **.NET 6/7** para realizar cálculos e validações geométricas em formas 2D e 3D.  
+Ela permite calcular área, perímetro, volume e verificar se uma forma pode ser contida dentro de outra.
 
-🚀 Funcionalidades
+---
 
-Cálculos em 2D
+## 🚀 Funcionalidades
 
-Área e perímetro de círculo
+### 🔷 Cálculos em 2D
+- Área e perímetro de **círculo**
+- Área e perímetro de **retângulo**
 
-Área e perímetro de retângulo
+### 🔶 Cálculos em 3D
+- Área superficial e volume de **esfera**
 
-Cálculos em 3D
+### ✅ Validações geométricas
+- Verificar se uma forma pode ser contida dentro de outra
 
-Área superficial e volume de esfera
+#### Exemplos:
+- Círculo raio `5` dentro de Retângulo `10x10` → ✅
+- Retângulo `7x7` dentro de Retângulo `6x5` → ❌
 
-Validações geométricas
+---
 
-Verificar se uma forma cabe dentro da outra
+## 📦 Tecnologias Utilizadas
 
-Exemplo:
+- [.NET 6 / 7](https://dotnet.microsoft.com/) (ASP.NET Core Web API)
+- [Swagger / Swashbuckle](https://swagger.io/) (documentação e testes)
+- C# 10 / 11
+- Arquitetura em camadas:
+  - `Api`
+  - `Application`
+  - `Domain`
+  - `Infrastructure`
 
-Círculo raio 5 dentro de Retângulo 10x10 ✅
+---
 
-Retângulo 7x7 dentro de Retângulo 6x5 ❌
+## ⚙️ Como Rodar o Projeto
 
-📦 Tecnologias utilizadas
+### 1. Clone o repositório
 
-.NET 6 / 7 (ASP.NET Core Web API)
-
-Swagger / Swashbuckle (documentação e testes)
-
-C# 10/11
-
-Arquitetura em camadas (Api, Application, Domain, Infrastructure)
-
-⚙️ Como rodar o projeto
-
-Clone o repositório:
-
+```bash
 git clone https://github.com/seu-usuario/GeoMaster.git
 cd GeoMaster
+```
+### 2. Restaure as dependências
 
-
-Restaure as dependências:
-
+```bash
 dotnet restore
+```
+### 3. Rode a aplicação
 
-
-Rode a aplicação:
-
+```bash
 dotnet run --project GeoMaster.Api
+```
+### 4. Acesse o Swagger
+🔗https://localhost:7213/swagger
 
+---
 
-Acesse o Swagger UI:
-
-https://localhost:7213/swagger
-
-🔗 Endpoints principais
-📌 Cálculos (/api/v1/calculos)
-
-POST /area → calcula área de uma forma
-
-POST /perimetro → calcula perímetro de uma forma 2D
-
-POST /volume → calcula volume de uma forma 3D
-
-Exemplo de request:
-
-{
+##🔗 Endpoints Principais
+###📌 Cálculos (/api/v1/calculos)
+- POST /area → Calcula área de uma forma
+- POST /perimetro → Calcula perímetro de uma forma 2D
+- POST /volume → Calcula volume de uma forma 3D
+  ### Exemplo de request
+  ```json
+  {
   "tipo": "circulo",
   "raio": 5
-}
+  }
+  ```
+###📌 Geometria (/api/geometry)
+- GET /area2d/circulo?raio=5
+- GET /area2d/retangulo?largura=4&altura=6
+- GET /perimetro2d/circulo?raio=7
+- GET /area3d/esfera?raio=10
+- GET /volume3d/esfera?raio=10
 
-📌 Geometria (/api/geometry)
-
-GET /area2d/circulo?raio=5
-
-GET /area2d/retangulo?largura=4&altura=6
-
-GET /perimetro2d/circulo?raio=7
-
-GET /area3d/esfera?raio=10
-
-GET /volume3d/esfera?raio=10
-
-📌 Validações (/api/v1/validacoes)
-
-POST /forma-contida → verifica se uma forma cabe dentro da outra
-
-Exemplo de request:
-
-{
+###📌 Validações (/api/v1/validacoes)
+- POST /forma-contida → Verifica se uma forma cabe dentro da outra
+  ### Exemplo de request:
+  ```json
+  {
   "formaInterna": { "tipo": "circulo", "raio": 5 },
   "formaExterna": { "tipo": "retangulo", "largura": 10, "altura": 10 }
-}
-
-
-Exemplo de resposta:
-
-{
+  }
+  ```
+  ### Exemplo de resposta:
+  ```json
+  {
   "resultado": true,
-  "mensagem": "✅ A forma interna pode ser contida dentro da forma externa."
-}
+  "mensagem": "A forma interna pode ser contida dentro da forma externa."
+  }
+  ```
+---
+###👨‍💻 Autores
+Projeto desenvolvido para fins acadêmicos por:
+  - Eduarda Tiemi Akamini Machado (rm554756)
+  - Victor Henrique Estrella Carracci (rm556206)
 
-🛠 Estrutura do projeto
-GeoMaster.Api
- ┣ Controllers
- ┣ DTOs
-GeoMaster.Application
- ┣ Interfaces
- ┣ Services
-GeoMaster.Domain
- ┣ Entities
- ┣ Factories
- ┣ ValueObjects
-
-👨‍💻 Autor
-
-Projeto desenvolvido para fins acadêmicos por Eduarda Tiemi Akamini Machado (rm554756) e Victor Henrique Estrella Carracci (rm556206).
