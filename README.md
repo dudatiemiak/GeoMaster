@@ -25,9 +25,8 @@ Ela permite calcular área, perímetro, volume e verificar se uma forma pode ser
 
 ## 📦 Tecnologias Utilizadas
 
-- [.NET 6 / 7](https://dotnet.microsoft.com/) (ASP.NET Core Web API)
-- [Swagger / Swashbuckle](https://swagger.io/) (documentação e testes)
-- C# 10 / 11
+- .NET 8(ASP.NET Core Web API)
+- Swagger / Swashbuckle(documentação e testes)
 - Arquitetura em camadas:
   - `Api`
   - `Application`
@@ -41,7 +40,7 @@ Ela permite calcular área, perímetro, volume e verificar se uma forma pode ser
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/GeoMaster.git
+git clone https://github.com/dudatiemiak/GeoMaster.git
 cd GeoMaster
 ```
 ### 2. Restaure as dependências
@@ -59,8 +58,8 @@ dotnet run --project GeoMaster.Api
 
 ---
 
-##🔗 Endpoints Principais
-###📌 Cálculos (/api/v1/calculos)
+## 🔗 Endpoints Principais
+### 📌 Cálculos (/api/v1/calculos)
 - POST /area → Calcula área de uma forma
 - POST /perimetro → Calcula perímetro de uma forma 2D
 - POST /volume → Calcula volume de uma forma 3D
@@ -71,14 +70,14 @@ dotnet run --project GeoMaster.Api
   "raio": 5
   }
   ```
-###📌 Geometria (/api/geometry)
+### 📌 Geometria (/api/geometry)
 - GET /area2d/circulo?raio=5
 - GET /area2d/retangulo?largura=4&altura=6
 - GET /perimetro2d/circulo?raio=7
 - GET /area3d/esfera?raio=10
 - GET /volume3d/esfera?raio=10
 
-###📌 Validações (/api/v1/validacoes)
+### 📌 Validações (/api/v1/validacoes)
 - POST /forma-contida → Verifica se uma forma cabe dentro da outra
   ### Exemplo de request:
   ```json
@@ -95,7 +94,7 @@ dotnet run --project GeoMaster.Api
   }
   ```
 ---
-###👨‍💻 Autores
+### 👨‍💻 Autores
 Projeto desenvolvido para fins acadêmicos por:
   - Eduarda Tiemi Akamini Machado (rm554756)
   - Victor Henrique Estrella Carracci (rm556206)
